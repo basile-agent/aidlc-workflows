@@ -1,9 +1,10 @@
 import express from 'express';
 import { create, getAll, getById, update, remove } from '../models/todo-store.js';
+import { validateTodo } from '../middleware/validate.js';
 
 const router = express.Router();
 
-router.post('/todos', (req, res) => {
+router.post('/todos', validateTodo, (req, res) => {
   const { title } = req.body;
   const todo = create(title);
   res.status(201).json(todo);
